@@ -22,8 +22,15 @@ steps:
     goals: 'package'
 - task: CopyFiles@2
   inputs:
-    Contents: '**/.war'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    SourceFolder: '$(agent.builddirectory)'
+    Contents: '**'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+    MaxArtifactSize: 
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
